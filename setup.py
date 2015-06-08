@@ -18,5 +18,5 @@ setup(
     author_email='fabian@cos.io',
     url='https://github.com/fabianvf/sharepa',
     download_url='https://github.com/fabianvf/sharepa/tarball/{}'.format(VERSION),
-    install_reqs=install_reqs
+    install_requires=install_reqs
 )
