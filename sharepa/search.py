@@ -17,6 +17,10 @@ class ShareSearch(Search):
         )
 
     def count(self):
+        d = self.to_dict()
+        if d.get('aggs'):
+            del d['aggs']
+        self = ShareSearch.from_dict(d)
         return self._query(self.to_dict(), params=dict(count=True))['count']
 
     def scan(self, size=100):
@@ -35,3 +39,12 @@ class ShareSearch(Search):
             data=json.dumps(self.to_dict()),
             params=params or self.PARAMS
         ).json()
+
+basic_search = ShareSearch()
+basic_search.aggs.bucket(
+    'sourceAgg',
+    'terms',
+    field='_type',
+    size=0,
+    min_doc_count=0
+)
