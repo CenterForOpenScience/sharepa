@@ -7,6 +7,5 @@
 
 
 [![Coverage Status](https://coveralls.io/repos/fabianvf/sharepa/badge.svg?branch=develop)](https://coveralls.io/r/fabianvf/sharepa?branch=develop)
-[![Code Climate](https://codeclimate.com/github/fabianvf/sharepa/badges/gpa.svg)](https://codeclimate.com/github/sharepa/scrapi)
 
 A python client for browsing and analyzing SHARE data (https://osf.io/share), gathered with scrAPI (https://github.com/fabianvf/scrapi).
