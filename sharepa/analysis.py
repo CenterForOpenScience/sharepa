@@ -16,7 +16,7 @@ def bucket_to_dataframe(name, bucket):
     ).T
 
 
-def merge_dataframes(dfs):
+def merge_dataframes(*dfs):
     '''A helper function for merging two dataframes that have the same indices
 
         :param dfs: a list of dataframes to be merged (note: they must have the same indices)
