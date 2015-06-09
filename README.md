@@ -10,5 +10,5 @@
 [![Code Climate](https://codeclimate.com/github/fabianvf/sharepa/badges/gpa.svg)](https://codeclimate.com/github/sharepa/scrapi)
 
 
-A python client for browsing and analyzing SHARE data (https://osf.io/share), gathered with scrAPI (https://github.com/fabianvf/scrapi).
+A python client for browsing and analyzing SHARE data (https://osf.io/share), gathered with scrAPI (https://github.com/fabianvf/scrapi). It builds heavily (almost completely) on the elasticsearch-dsl package for handling Elasticsearch querying and aggregations, and contains some additional utilities to help with graphing and analyzing the data.
 
