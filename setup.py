@@ -2,7 +2,7 @@ from setuptools import setup
 from pip.download import PipSession
 from pip.req import parse_requirements
 
-VERSION = '0.1'
+VERSION = '0.1.1'
 
 install_reqs = map(
     lambda ir: str(ir.req),

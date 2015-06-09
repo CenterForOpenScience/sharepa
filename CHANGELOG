@@ -2,6 +2,10 @@
 ChangeLog
 *********
 
+0.1.1.1 (2015-06-09)
+====================
+- Oops, forgot to version bump
+
 0.1.1 (2015-06-09)
 ==================
 - fix requirements distribution issue
