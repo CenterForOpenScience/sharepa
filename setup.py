@@ -1,14 +1,12 @@
 from setuptools import setup
-from pip.download import PipSession
-from pip.req import parse_requirements
 
-VERSION = '0.1.1'
+VERSION = '0.2'
 
-install_reqs = map(
-    lambda ir: str(ir.req),
-    parse_requirements('requirements.txt', session=PipSession())
-)
-
+install_reqs = [
+    'elasticsearch-dsl',
+    'requests',
+    'pandas'
+]
 setup(
     name='sharepa',
     packages=['sharepa'],
