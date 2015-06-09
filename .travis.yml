@@ -7,9 +7,11 @@ install:
   - pip install -r dev-requirements.txt
   - pip install coveralls
 
-script: py.test tests --cov-report term-missing --cov-config .coveragerc --cov sharepa
+script:
+  py.test tests --cov-report term-missing --cov-config .coveragerc --cov sharepa
 
-after_success: coveralls
+after_success:
+  coveralls
 
 deploy:
   provider: pypi
