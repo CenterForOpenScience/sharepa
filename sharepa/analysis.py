@@ -16,6 +16,33 @@ def bucket_to_dataframe(name, bucket):
     ).T
 
 
+def convert_key(x):
+    x.key = x.key_as_string
+    return x
+
+
+def aggregation_to_dataframe(name,agg,filter=None):
+    '''A function that turns elasticsearch response with/without aggregation into a dataframe
+
+        :param name: The name of the returned dataframe col
+        :type name: str
+        :param bucket: a bucket from elasticsearch results
+        :type bucket: list[dict]
+        :returns: pandas.DataFrame
+    '''
+    if hasattr(agg, 'buckets'):
+        if filter is not None:
+            expanded_agg = []
+            for bucket in agg.buckets:
+                expanded_agg.append(bucket_to_dataframe(bucket.key, map(convert_key, getattr(bucket,filter).buckets)))
+            return merge_dataframes(*expanded_agg)
+        else:
+            return bucket_to_dataframe(name,agg.buckets)
+    else:
+        raise NameError('no aggregated data to convert') #FIXME Work out what i should actually throw here
+
+
+
 def merge_dataframes(*dfs):
     '''A helper function for merging two dataframes that have the same indices
 
