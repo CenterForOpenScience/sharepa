@@ -170,4 +170,117 @@ my_data_frame.sort(ascending=False, columns='# documents by source - No Tags').p
 ```
 
 
+## Advanced Aggregations
 
+Let's make a more interesting aggregation. Let's look at the documents that are missing titles, by source.
+
+```
+my_search.aggs.bucket(
+    'missingTitle',  # Name of the aggregation
+    'filters', # We'll want to filter all the documents that have titles
+    filters={ 
+        'missingTitle': F(  # F defines a filter
+            'fquery',  # This is a query filter which takes a query and filters document by it
+            query=Q(  # Q can define a query
+                'query_string', # The type of aggregation
+                query='NOT title:*',  # This will match all documents that don't have content in the title field
+                analyze_wildcard=True,
+            )
+        ) 
+    }
+).metric(  # but wait, that's not enough! We need to break it down by source as well
+    'sourceAgg',
+    'terms',
+    field='_type',
+    size=0,
+    min_doc_count=0
+)
+```
+
+We can check out what the query looks like now: 
+```
+pretty_print(my_search.to_dict()) 
+```
+
+```
+{
+    "query": {
+        "query_string": {
+            "analyze_wildcard": true, 
+            "query": "NOT tags:*"
+        }
+    }, 
+    "aggs": {
+        "sources": {
+            "terms": {
+                "field": "_type", 
+                "min_doc_count": 0, 
+                "size": 0
+            }
+        }, 
+        "missingTitle": {
+            "aggs": {
+                "sourceAgg": {
+                    "terms": {
+                        "field": "_type", 
+                        "min_doc_count": 0, 
+                        "size": 0
+                    }
+                }
+            }, 
+            "filters": {
+                "filters": {
+                    "missingTitle": {
+                        "fquery": {
+                            "query": {
+                                "query_string": {
+                                    "query": "NOT title:*", 
+                                    "analyze_wildcard": true
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+```
+
+Wow this query has gotten big! Good thing we don't have to define it by hand.
+
+Now we just need to execute the search:
+```
+my_results = my_search.execute()
+```
+
+Let's check out the results, and make sure that there are indeed no tags.
+
+```
+for hit in my_results:
+    print(hit.title, hit.get('tags'))  # we can see there are no tags in our results
+```
+
+Let's pull out those buckets and turn them into dataframes for more analysis
+
+```
+missing_title = bucket_to_dataframe('missingTitle', my_results.aggregations.missingTitle.buckets.missingTitle.sourceAgg.buckets)
+matches = bucket_to_dataframe('matches', my_results.aggregations.sources.buckets)
+```
+
+It'd be great if we could merge this dataframe with another that has information about all of the documents. Luckilly we have a built in function that will give us that data frame easily, called source_counts. 
+
+We can use that dataframe and merge it with our newly created one:
+
+```
+from sharepa import source_counts
+
+
+merged = merge_dataframes(source_counts(), matches,  missing_title)
+```
+
+We can also easily do computations on these columns, and add those to the dataframe. Here's a way to get a pandas dataframe with a column for a percent from each source that is missing tags and a title:
+
+```
+merged['percent_missing_tags_and_title'] = (merged.missingTitle / merged.total_source_counts) * 100
+```
