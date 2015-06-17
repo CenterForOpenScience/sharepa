@@ -1,9 +1,8 @@
+import vcr
+import elasticsearch_dsl
+
 from sharepa.search import ShareSearch
 from sharepa.search import basic_search
-
-import vcr
-import types
-import elasticsearch_dsl
 
 
 def test_basic_search():
