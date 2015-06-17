@@ -5,12 +5,14 @@ from sharepa.search import ShareSearch
 from sharepa.search import basic_search
 
 
+@vcr.use_cassette('tests/vcr/basic_search.yaml')
 def test_basic_search():
     results = basic_search.execute()
     assert results.hits
     assert results.aggregations
 
 
+@vcr.use_cassette('tests/vcr/no_title_execute.yaml')
 def test_no_title_search():
     my_search = ShareSearch()
 
@@ -35,9 +37,11 @@ def test_execute():
     assert first_result['title'] == 'Avian community structure and incidence of human West Nile infection'
 
 
+@vcr.use_cassette('tests/vcr/basic_search.yaml')
 def test_count():
     count = basic_search.count()
     assert isinstance(count, int)
+    assert count == 1048895
 
 
 def test_query():

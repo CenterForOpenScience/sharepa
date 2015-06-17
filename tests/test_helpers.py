@@ -18,6 +18,8 @@ def test_pretty_print():
         pytest.fail("Unexpected exception!!")
 
 
+@vcr.use_cassette('tests/vcr/source_counts.yaml')
 def test_source_counts():
     all_counts = source_counts()
     assert isinstance(all_counts, pandas.core.frame.DataFrame)
+    assert all_counts.count().values[0] == 42
