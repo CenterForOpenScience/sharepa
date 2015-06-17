@@ -5,7 +5,7 @@ from sharepa.search import ShareSearch
 from sharepa.search import basic_search
 
 
-@vcr.use_cassette('tests/vcr/basic_search.yaml')
+@vcr.use_cassette('tests/vcr/basic_search_one.yaml')
 def test_basic_search():
     results = basic_search.execute()
     assert results.hits
