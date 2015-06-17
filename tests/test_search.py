@@ -31,7 +31,6 @@ def test_execute():
     first_result = result.hits[0].to_dict()
 
     assert len(result.hits) == 10
-    assert result.to_dict().keys() == ['hits', '_shards', 'took', 'timed_out', 'time']
     assert isinstance(result, elasticsearch_dsl.result.Response)
     assert first_result['title'] == 'Avian community structure and incidence of human West Nile infection'
 
