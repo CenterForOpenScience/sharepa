@@ -11,3 +11,4 @@ def test_merge_dataframes():
 
     assert isinstance(family, pd.core.frame.DataFrame)
     assert family.columns.values.tolist() == ['Rhodes', 'Rhodes']
+    assert family.index.item() == 'Rhodes'
