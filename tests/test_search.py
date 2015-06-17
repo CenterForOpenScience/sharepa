@@ -2,6 +2,7 @@ from sharepa.search import ShareSearch
 from sharepa.search import basic_search
 
 import elasticsearch_dsl
+import types
 
 
 def test_basic_search():
@@ -37,3 +38,17 @@ def test_count():
 
 def test_query():
     assert isinstance(basic_search._query(basic_search.to_dict()), dict)
+
+
+def test_scan():
+    my_search = ShareSearch()
+    my_search = my_search.query(
+        'query_string',
+        query='science AND cows AND milk'
+    )
+
+    scan = my_search.scan()
+    scan_list = [item for item in scan]
+
+    assert isinstance(scan, types.GeneratorType)
+    assert scan_list
