@@ -1,0 +1,24 @@
+interactions:
+- request:
+    body: '{"query": {"match_all": {}}}'
+    headers:
+      Accept: ['*/*']
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      Content-Length: ['28']
+      User-Agent: [python-requests/2.7.0 CPython/2.7.9 Darwin/13.4.0]
+      content-type: [application/json]
+    method: POST
+    uri: https://osf.io/api/v1/share/search/?count=True
+  response:
+    body: {string: !!python/unicode '{"count": 1048895, "results": [], "time": 0.02}'}
+    headers:
+      connection: [close]
+      content-length: ['47']
+      content-type: [application/json; charset=utf-8]
+      date: ['Wed, 17 Jun 2015 19:37:47 GMT']
+      server: [nginx/1.4.6 (Ubuntu)]
+      set-cookie: [NB_SRVID=srv25533; path=/]
+      x-sentry-id: [None]
+    status: {code: 200, message: OK}
+version: 1
