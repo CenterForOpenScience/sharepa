@@ -15,7 +15,7 @@ def test_basic_aggregation():
         min_doc_count=0
     )
 
-    #Create Mock object for test so we are not actually hitting server:
+    # Create Mock object for test so we are not actually hitting server:
     search_mock = AttrDict({u'testing_basic_agg':
         {u'buckets':
             [

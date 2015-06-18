@@ -1,5 +1,6 @@
 import pandas as pd
 
+
 def bucket_to_dataframe(name, buckets, append_name=None):
     '''A function that turns elasticsearch aggregation buckets into dataframes
 
@@ -9,15 +10,16 @@ def bucket_to_dataframe(name, buckets, append_name=None):
         :type bucket: list[dict]
         :returns: pandas.DataFrame
     '''
-    list_of_dicts = []
+    expanded_buckets = []
     for item in buckets:
         single_dict = item.to_dict()
         single_dict[name] = single_dict.pop('doc_count')
         if append_name:
             for key in single_dict.keys():
                 single_dict[append_name + '.' + key] = single_dict.pop(key)
-        list_of_dicts.append(single_dict)
-    return pd.DataFrame(list_of_dicts)
+        expanded_buckets.append(single_dict)
+    return pd.DataFrame(expanded_buckets)
+
 
 def agg_to_two_dim_dataframe(agg):
     '''A function that takes an elasticsearch response with aggregation and returns the names of all bucket value pairs
@@ -26,7 +28,6 @@ def agg_to_two_dim_dataframe(agg):
         :type agg: elasticsearch response.aggregation.agg_name object
         :returns: pandas data frame of one or two dimetions depending on input data
     '''
-    print agg
     expanded_agg = []
     for bucket in agg.buckets:
         bucket_as_dict = bucket.to_dict()
@@ -34,16 +35,17 @@ def agg_to_two_dim_dataframe(agg):
             return bucket_to_dataframe('doc_count', agg.buckets)
         else:
             name_of_lower_level = bucket_as_dict.keys()[0]
-            single_level_dataframe= bucket_to_dataframe(bucket.key, getattr(bucket, name_of_lower_level).buckets, name_of_lower_level)
+            single_level_dataframe = bucket_to_dataframe(bucket.key,
+                                                         bucket[name_of_lower_level].buckets,
+                                                         name_of_lower_level)
             expanded_agg.append(single_level_dataframe)
     merged_results = merge_dataframes(*expanded_agg)
-    #rearrange to get key as first col
+    # rearrange to get key as first col
     cols = merged_results.columns.tolist()
     indices_of_keys = [i for i, s in enumerate(cols) if 'key' in s]
-    all_other_cols = [i for i in range(0,len(cols)) if i not in indices_of_keys]
+    all_other_cols = [i for i in range(0, len(cols)) if i not in indices_of_keys]
     new_col_order = indices_of_keys + all_other_cols
     return merged_results[new_col_order]
-
 
 
 def merge_dataframes(*dfs):
@@ -55,4 +57,3 @@ def merge_dataframes(*dfs):
     '''
     merged_dataframe = pd.concat(dfs, axis=1, join_axes=[dfs[0].index])
     return merged_dataframe.transpose().drop_duplicates().transpose()
-

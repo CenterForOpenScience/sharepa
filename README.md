@@ -284,3 +284,35 @@ We can also easily do computations on these columns, and add those to the datafr
 ```
 merged['percent_missing_tags_and_title'] = (merged.missingTitle / merged.total_source_counts) * 100
 ```
+
+## Examples
+
+The following examples cover some of the more common use cases of sharepa. They are by no means exhaustive, for more information see the elasticsearch and elasticsearch-dsl documentation.
+
+# Filters
+For more filter types see: https://www.elastic.co/guide/en/elasticsearch/reference/1.6/query-dsl-filters.html
+
+Applying a filter to a search. Here, results will only contain hits between 14-06-01 and 15-06-01
+
+```
+my_search = ShareSearch() #create search object
+my_search = my_search.filter( #apply filter to search
+    "range", #applied a range type filter
+    providerUpdatedDateTime={ #the feild in the data we compare
+        'gte':'2014-01-01', #hits must be greater than or equal to this date and...
+        'lte':'2015-01-01' #hits must be less than or equal to this date
+    }
+)
+```
+Another filter. Where, results will only contain hits between 14-06-01 and 15-06-01
+
+```
+my_search = ShareSearch() #create search object
+my_search = my_search.filter( #apply filter to search
+    "range", #applied a range type filter
+    providerUpdatedDateTime={ #the feild in the data we compare
+        'gte':'2014-01-01', #hits must be greater than or equal to this date and...
+        'lte':'2015-01-01' #hits must be less than or equal to this date
+    }
+)
+```
