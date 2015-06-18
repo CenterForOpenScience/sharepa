@@ -1,0 +1,93 @@
+interactions:
+- request:
+    body: '{"query": {"query_string": {"query": "squared AND circle"}}, "from": 0,
+      "size": 100}'
+    headers:
+      Accept: ['*/*']
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      Content-Length: ['84']
+      User-Agent: [python-requests/2.7.0 CPython/2.7.9 Darwin/13.4.0]
+      content-type: [application/json]
+    method: POST
+    uri: https://osf.io/api/v1/share/search/?raw=True
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA+1ZbW/bOBL+K4TvSwrYsmQ7b0Y2QJruHnbRtEGTvT2gXgS0REtsJFJLSn5p0f9+
+        z1Av8VsSH7CH+7ALBIhNjWbImeE8z4y/dQqZic6Y+Z4/6rJOIguLb9+aD5+/dR5sqE0lchYMR+eB
+        fwzBh2KV02JnJmObcAjQooxoKRien5wOzt2K1aUJSfBbJxI2NDIvpFYkdZFf3ieCWZFJvhSWQQfL
+        jc61IQmeskKzggT+KOmR0bpgeuaWhIyFmvO0xGv1Uqjn3EiuQsEyXhi59NjPM7YQjNtHlugFm3FT
+        vZumMrdaRkxaNjM6c6uhNGEqumyRyDChJ7QYiZlUknbTWFHaZOzogrPEiNkPk05SFPm4318sFl6e
+        aquV8LSJ+xxHgLq+VDM9jrTsB74XDE+D/hd4A0fzcpL0g0EwGgz/sf7FE35wOumwgptYFLDwME25
+        epx0LoPBRZ9fvsEWyWcCG+QF42rNF+wHNmChVjj9tCwgUfkvkrZwfmkPKyOhClms4BuWlTgv/m9r
+        CvoDFmlhu/QQu2ULXaYRE8tchEWXWUkat2NBcarCFTFEjYxIYT32QUiIVv63Zcbgxiq0+FzHL9Ux
+        4lck7cJTjNlcGDlb4Q3EhTJEmGLlXfTzS8qw9sDaUOYiYRV3Gd254SbU7FqrWESaRC0eXDmh3/Ft
+        xjOZrj7UwmtiPIpc0HnaPKSXYzkXqllwqmlVZFymZKzzvYsUb0y/lV/g0KuZxZles/wkdYBhp/gF
+        w1epWHIVIQ5vueFhghi8Zn9D8IAttCZe2MYNp3DfaP6I/69tYE3sAPNO9ZZpCidyLXVhr+uKaO65
+        ZVK5bEOlKuEYSlJpdSpVVT2QQHRBClx3ZelWICOn0lUTXKJ/8tJa1BVG18hdLGSGbbPPlb7bKieR
+        6q7OtSXvqTYiOTqarsCG6FquWmHmMhQ/v6OT1Tne6mufrdXW7xv55iqViO6pJu8qWH9aVWz4obOp
+        wZXz3VfXqvzuO3Dho93zUrVO12zTRl5OU2kTEb2DZ/e8t/kcO/UH4+NBlw3O2FVu8N8PjrFtijZc
+        NEcZM7/mEXQ5hfcVkHVIquePehUAlUZWUQm50kqGPP0VVxK669IdLT0UaFe1XyrSXuz7w3rLleFK
+        7+dGD8+l10ChF+qsPw8aGLD9BhCdP4CSKhJL2oPLnof5oCoe60DrAxrOSLYJADdLOX/Q3JWTGmfx
+        bczNv+Wctj8Ohv6pdxqc+U5iDXcbtxqXnU2JIpvbkMzYb4R6BNNTXBSmxIKFKbcOZSkrecwp/3sS
+        6EtoW7BUxknBpoJnli1Qv9lPgDgpzAQwxJWdEWC60smmwJsarmalCtdh1WEFsCATVLEoSCwXKirT
+        MvPYfSKsmChnggBaW4AMoZDh7MgIupUhUoDgjtc4/sZd8kgj31Y9wIXUkQzZDQeCiHKiGvOuMvCv
+        MiuLpItzk01gHdTMpADYQbVQMc6Uo5ZmohDGY78lOApVk3ZtogBLX4XR3XbTtT9oE2+FtSKtFoCl
+        MAA83Xif8RyuRa0WFqqUoxyrLsmsGI4nsmkKpCVnAgeha/UUCRUTNPciZD5KlyNNTb2aqAWfi5yH
+        j6Kw7KgtY+TGnvPlG4/d1k5e228L6U9OQuy5mijCXV4AuWuOpOCPXKe4eRbvFwtRO6YhAFzFZQrS
+        lWnsjqLbKoAXkB7wIdXgfRIu6DDK05WFc42YC55a4jYKcacCXOVaG9E6Oci9Ep6glJSq5j8UqKWE
+        a5yflxL0EBq8iYPR59nDO6EQ2C6yxjyyTyT7En2opElqF8Lcy9v04ZEWn2EPn6SKu+wXpJxlDhBe
+        skzC++26VzfsOpVbhjewk+Bp946v3e7mpjbXs7mJ44pdVtk+UazOKIRgT+a5I70InE/V7lXkfAW4
+        CrEstqCOahJ3tGgLaOsHu8BFGLNH3i2jjANxhj3/tDc42bJUEW0UE0dYtqytPYTFFkeozldNxJSA
+        Y62mA6fGDqNORv2P773hmQdMGg6OSfdzULCFwFYUdyide3bTPMFx8gS3LrTj+v/Wmda7uN1DbfZ4
+        nzt/I8rfiNI07H8NRLnWGeHdmI1AEWJqoId154GPHzH9CC17LwqApwXBWKFnwR2lIow+Py7pDWpQ
+        VZmmtGjL6RdAnltrLibrAUpJT+cgJnzSC07ufX/s/ujmv0aJXfHdX4K02w0YdLWhZzj0dn06mPae
+        jI5Pj0/OaBD14nxpMBwF5wfMl64x1XEcpFQ0PgJJRI8X6Rhsjk1LmRasxCAjpvlEnEy16f2iwb6w
+        ALKX6Mhjd6CiYJuYH1WkTcx16jpAblauI3SDFbBIVWZTdLzUOnLip+XUoiGtmkXQQoOBSSFAa8A/
+        QF4aih0RKX4v8pRjpoVpTsr+tNFSMBgMTprRkvvSqwwFe6dLn4Pz32m+BNxOMTAhHwC7P4n0x/4t
+        Nz8S0Y7YDEnZm8k0xedqYIZx1HUYve3f8K8/saMpBnIbQqDmSOpUWBByULN/8fyaHcWGmOK6rpox
+        voHb4KqeG8yg+cWki1p1NBI6KkPYrPv4lheCSWMMByEEofZt1a7IGXqIiidCIcE63uYh5piROxkq
+        UqIzjZlTTSRTDVtsf3T/vHHfbkw86/v7x333nGj/XeCGfq6doSwkF4BGK2ZX2VSntiLKVvxRkg9w
+        GNcdHX42eAQtBgaQdfuEFhndhZhLXVo0Gq73gzNdd4XM3d2Hga0phqk1Yw+xCWpE6vvQTmefdlja
+        fYF0cf5fJj8cHfh7M/+uzN3IGXlB41qihnSAuyF5/oAp4y1HhWFvS9SCDF2s44kv8fVNyd1ugd7f
+        IO3OAK0+0y2gQZGa3WPe9eqQsxU6wKxT+4LZjxnq6kcDs7iPrx16Xe4A26R7y/RGm4IR322ywvUV
+        SgAIUQXQhlJbmMi87UXvr6qkdUl4IS+vPIZaARxYygjN9EVfXrKr++trNhgOTv3/40SvRrO/ykRv
+        dNJlgc8+6Lmb6I0OmuiNekGAv0Poy+sTPVeHaaI3IH3tKPG/mujVQXue2riE1QWnXweG+Jzx5Z5f
+        0qi9faBeOKpnx6UroUBHvHaMhzP8viDoVzV/Td8xvVZo/Ui63QNMgKIHXRZYmGFUIr7/B5B87h3Z
+        GwAA
+    headers:
+      connection: [close]
+      content-encoding: [gzip]
+      content-type: [application/json; charset=utf-8]
+      date: ['Wed, 17 Jun 2015 14:52:29 GMT']
+      server: [nginx/1.4.6 (Ubuntu)]
+      set-cookie: [NB_SRVID=srv25533; path=/]
+      x-sentry-id: [None]
+    status: {code: 200, message: OK}
+- request:
+    body: '{"query": {"query_string": {"query": "squared AND circle"}}, "from": 3,
+      "size": 100}'
+    headers:
+      Accept: ['*/*']
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      Content-Length: ['84']
+      User-Agent: [python-requests/2.7.0 CPython/2.7.9 Darwin/13.4.0]
+      content-type: [application/json]
+    method: POST
+    uri: https://osf.io/api/v1/share/search/?raw=True
+  response:
+    body: {string: !!python/unicode '{"time": 0.01, "hits": {"hits": [], "total":
+        3, "max_score": 0.81349105}, "_shards": {"successful": 5, "failed": 0, "total":
+        5}, "took": 1, "timed_out": false}'}
+    headers:
+      connection: [close]
+      content-length: ['159']
+      content-type: [application/json; charset=utf-8]
+      date: ['Wed, 17 Jun 2015 14:52:29 GMT']
+      server: [nginx/1.4.6 (Ubuntu)]
+      set-cookie: [NB_SRVID=srv25533; path=/]
+      x-sentry-id: [None]
+    status: {code: 200, message: OK}
+version: 1
