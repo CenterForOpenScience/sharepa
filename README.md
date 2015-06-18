@@ -304,15 +304,8 @@ my_search = my_search.filter( #apply filter to search
     }
 )
 ```
-Another filter. Where, results will only contain hits between 14-06-01 and 15-06-01
+We can add a second filter to the first, using AND or OR:
 
 ```
-my_search = ShareSearch() #create search object
-my_search = my_search.filter( #apply filter to search
-    "range", #applied a range type filter
-    providerUpdatedDateTime={ #the feild in the data we compare
-        'gte':'2014-01-01', #hits must be greater than or equal to this date and...
-        'lte':'2015-01-01' #hits must be less than or equal to this date
-    }
-)
+
 ```

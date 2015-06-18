@@ -1,4 +1,5 @@
 import pandas as pd
+import time
 
 
 def bucket_to_dataframe(name, buckets, append_name=None):
@@ -12,7 +13,10 @@ def bucket_to_dataframe(name, buckets, append_name=None):
     '''
     expanded_buckets = []
     for item in buckets:
-        single_dict = item.to_dict()
+        if type(item) is dict:
+            single_dict = item
+        else:
+            single_dict = item.to_dict()
         single_dict[name] = single_dict.pop('doc_count')
         if append_name:
             for key in single_dict.keys():
@@ -36,7 +40,7 @@ def agg_to_two_dim_dataframe(agg):
         else:
             name_of_lower_level = bucket_as_dict.keys()[0]
             single_level_dataframe = bucket_to_dataframe(bucket.key,
-                                                         bucket[name_of_lower_level].buckets,
+                                                         bucket[name_of_lower_level]['buckets'],
                                                          name_of_lower_level)
             expanded_agg.append(single_level_dataframe)
     merged_results = merge_dataframes(*expanded_agg)
