@@ -7,6 +7,8 @@ install:
   - pip install -r dev-requirements.txt
   - pip install coveralls
 
+before_script: flake8 .
+
 script:
   py.test tests --cov-report term-missing --cov-config .coveragerc --cov sharepa
 
