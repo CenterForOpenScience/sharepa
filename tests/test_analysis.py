@@ -1,8 +1,9 @@
-from sharepa.analysis import agg_to_two_dim_dataframe
+from sharepa.analysis import agg_to_two_dim_dataframe, merge_dataframes
 from sharepa.search import ShareSearch
 from elasticsearch_dsl.utils import AttrDict
 import pandas as pd
 from mock import Mock
+from sharepa.analysis import
 
 def test_basic_aggregation():
     search_with_basic_aggs = ShareSearch()
@@ -121,6 +122,12 @@ def test_two_dim_aggregation():
     for index_2nd_level, count_num in enumerate(two_dim_dataframe['dates.and']):
         assert count_num == search_results.testing_two_dim_aggs.buckets[0].dates.buckets[index_2nd_level]['dates.and']
 
-#run tests
-test_basic_aggregation()
-test_two_dim_aggregation()
+def test_merge_dataframes():
+    dream = pd.DataFrame({'Rhodes': 'Dusty'}, index=['Rhodes'])
+    stardust = pd.DataFrame({'Rhodes': 'Cody'}, index=['Rhodes'])
+
+    family = merge_dataframes(dream, stardust)
+
+    assert isinstance(family, pd.core.frame.DataFrame)
+    assert family.columns.values.tolist() == ['Rhodes', 'Rhodes']
+    assert family.index.item() == 'Rhodes'
