@@ -155,10 +155,11 @@ To convert these results to a pandas dataframe, we'll look within the appropriat
 
 ```
 from sharepa import bucket_to_dataframe
-
+from matplotlib import pyplot
 
 my_data_frame = bucket_to_dataframe('# documents by source - No Tags', new_results.aggregations.sources.buckets)
 my_data_frame.plot(kind='bar')
+pyplot.show()
 ```
 
 This will create a bar graph showing all of the sources, and document counts for each source matching our query of items that do not have tags.
@@ -167,6 +168,7 @@ You can also sort the data based on a certain column, in this case, '# documents
 
 ```
 my_data_frame.sort(ascending=False, columns='# documents by source - No Tags').plot(kind='bar')
+pyplot.show()
 ```
 
 
@@ -283,4 +285,5 @@ We can also easily do computations on these columns, and add those to the datafr
 
 ```
 merged['percent_missing_tags_and_title'] = (merged.missingTitle / merged.total_source_counts) * 100
+pyplot.show()
 ```
