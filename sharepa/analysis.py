@@ -1,6 +1,4 @@
 import pandas as pd
-import time
-
 
 def bucket_to_dataframe(name, buckets, append_name=None):
     '''A function that turns elasticsearch aggregation buckets into dataframes
