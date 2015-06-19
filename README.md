@@ -177,6 +177,8 @@ pyplot.show()
 Let's make a more interesting aggregation. Let's look at the documents that are missing titles, by source.
 
 ```
+from elasticsearch_dsl import F, Q
+
 my_search.aggs.bucket(
     'missingTitle',  # Name of the aggregation
     'filters', # We'll want to filter all the documents that have titles
@@ -275,7 +277,7 @@ It'd be great if we could merge this dataframe with another that has information
 We can use that dataframe and merge it with our newly created one:
 
 ```
-from sharepa import source_counts
+from sharepa.helpers import source_counts
 
 
 merged = merge_dataframes(source_counts(), matches,  missing_title)
