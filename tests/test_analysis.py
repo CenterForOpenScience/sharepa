@@ -1,10 +1,47 @@
-from sharepa.analysis import agg_to_two_dim_dataframe, merge_dataframes
+from sharepa.analysis import agg_to_two_dim_dataframe, merge_dataframes, bucket_to_dataframe
 from sharepa.search import ShareSearch
 from elasticsearch_dsl.utils import AttrDict
 import pandas as pd
 from mock import Mock
 from sharepa.analysis import agg_to_two_dim_dataframe
 import pytest
+
+def test_bucket_to_data_frame():
+    search_basic = ShareSearch()
+    search_basic.aggs.bucket(
+        'agg_by_subs',  # Every aggregation needs a name
+        'terms',
+        field='subjects',
+        size=10,
+        min_doc_count=0
+    )
+
+    # Create Mock object for test so we are not actually hitting server:
+    search_mock = AttrDict({u'agg_by_subs':
+        {u'buckets':
+            [
+                {u'key': u'and', u'doc_count': 90372},
+                {u'key': u'article', u'doc_count': 81837},
+                {u'key': u'physics', u'doc_count': 74792},
+                {u'key': u'astrophysics', u'doc_count': 45266},
+                {u'key': u'energy', u'doc_count': 41402},
+                {u'key': u'high', u'doc_count': 41272},
+                {u'key': u'mathematics', u'doc_count': 37734},
+                {u'key': u'research', u'doc_count': 36819},
+                {u'key': u'theory', u'doc_count': 34277},
+                {u'key': u'matter', u'doc_count': 33688}
+            ]
+        }
+    })
+    search_basic.execute = Mock(return_value=search_mock)
+    search_results = search_basic.execute()
+    basic_dataframe = bucket_to_dataframe('ten_top_subjects', search_results.agg_by_subs.buckets)
+    assert isinstance(basic_dataframe, pd.DataFrame)
+    assert basic_dataframe.shape[0] == 10
+    for index, row_count in enumerate(basic_dataframe.ten_top_subjects):
+        assert row_count == search_results.agg_by_subs.buckets[index].ten_top_subjects
+    for index, row_name in enumerate(basic_dataframe.key):
+        assert row_name == search_results.agg_by_subs.buckets[index].key
 
 def test_basic_aggregation():
     search_with_basic_aggs = ShareSearch()
@@ -42,6 +79,7 @@ def test_basic_aggregation():
         assert row_count == search_results.testing_basic_agg.buckets[index].doc_count
     for index, row_name in enumerate(basic_dataframe.key):
         assert row_name == search_results.testing_basic_agg.buckets[index].key
+
 
 
 def test_two_dim_aggregation():
@@ -254,8 +292,6 @@ def test_throw_error_in_agg_convert_when_too_many_levels():
     search_results = search_with_multilevel.execute()
     with pytest.raises(ValueError):
         multilevel_dataframe = agg_to_two_dim_dataframe(search_results.testing_multilevel)
-
-test_throw_error_in_agg_convert_when_too_many_levels()
 
 def test_merge_dataframes():
     dream = pd.DataFrame({'Rhodes': 'Dusty'}, index=['Rhodes'])
