@@ -284,3 +284,86 @@ We can also easily do computations on these columns, and add those to the datafr
 ```
 merged['percent_missing_tags_and_title'] = (merged.missingTitle / merged.total_source_counts) * 100
 ```
+
+## Examples
+
+The following examples cover some of the more common use cases of sharepa. They are by no means exhaustive, for more information see the elasticsearch and elasticsearch-dsl documentation.
+
+# Query examples
+Queries and Filters are very similar, and have many overlaping search types (e.g. filter by range vs query by range)
+Queries sort returned hits by relevance (using the \_score feild), filters ignore revelence and just find documents that match the search criteria given.
+
+From Elastic search docs: 
+``
+    As a general rule, queries should be used instead of filters:
+    -for full text search
+    -where the result depends on a relevance score
+``
+
+Ex: Lets get all the documents with titles containing the word 'cell' with regex:
+```
+my_search = ShareSearch() #create search object
+my_search = my_search.query(
+    "regexp", #the first arg in a query or filter is the type of filter/query to be employed
+    title='.*cell.*' #then come the arguments, these are different depending on type of query is used, but generally: name_of_the_feild_to_be_operated_on='argument_values'
+)
+```
+
+Ex: Or we can get all documents from MIT:
+
+```
+my_search = ShareSearch() #create search object
+my_search = my_search.query(
+    "match", #the first arg in a query or filter is the type of filter/query to be employed
+    source='mit' #then come the arguments, these are different depending on type of query is used, but generally: name_of_the_feild_to_be_operated_on='argument_values'
+)
+```
+
+For more information on query types, see the [elasticsearch docs](https://www.elastic.co/guide/en/elasticsearch/reference/1.6/query-dsl-queries.html)
+
+# Filters
+From Elastic search docs:
+``
+As a general rule, filters should be used instead of queries:
+ - for binary yes/no searches
+ - for queries on exact values
+``
+
+For more filter types see: [Elasticsearch Filter Docs](https://www.elastic.co/guide/en/elasticsearch/reference/1.6/query-dsl-filters.html)
+
+Ex: Applying a filter to a search. Here, results will only contain hits between 14-06-01 and 15-06-01
+
+```
+my_search = ShareSearch() #create search object
+my_search = my_search.filter( #apply filter to search
+    "range", #applied a range type filter
+    providerUpdatedDateTime={ #the feild in the data we compare
+        'gte':'2014-01-01', #hits must be greater than or equal to this date and...
+        'lte':'2015-01-01' #hits must be less than or equal to this date
+    }
+)
+```
+Ex: We can add a second filter to the first, now hits will match both filters (date range and tags that start with 'ba').
+Note: there are many ways to write filters/queries depending on the level of abstraction you want from elasticsearch.
+
+```
+# Here is a pure elasticsearch-dsl filter
+my_search = my_search_two.filter(
+     "prefix",
+     tags="ba"
+)
+
+# Here is the same search as a mix of elasticsearch-dsl and elasticsearch where the args are input as a dictionary a la elasticsearch
+my_search = my_search.filter(
+     "prefix",
+     **{"tags": "ba"}
+)
+
+# We can also match elasticsearch syntax exactly, and input the raw dictionary into the filter method
+my_search = my_searchfilter(
+    {
+        "prefix": {"tags": "ba"}
+    }
+)
+```
+
