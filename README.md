@@ -52,7 +52,7 @@ for hit in results:
 You can make your own search object, which allows you to pass in custom queries for certain terms or SHARE fields. Queries are formed using [lucene query syntax](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html#query-string-syntax). 
 
 ```
-from sharepa import ShareSearch()
+from sharepa import ShareSearch
 
 my_search = ShareSearch()
 
