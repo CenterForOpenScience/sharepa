@@ -1,5 +1,6 @@
 import pandas as pd
 
+
 def bucket_to_dataframe(name, buckets, append_name=None):
     '''A function that turns elasticsearch aggregation buckets into dataframes
 
@@ -38,7 +39,8 @@ def agg_to_two_dim_dataframe(agg):
             return bucket_to_dataframe('doc_count', agg.buckets)
         else:
             lower_level_dict = [item for item in bucket_as_dict.keys() if type(bucket_as_dict[item]) is dict]
-            assert len(lower_level_dict) == 1
+            if len(lower_level_dict) > 1:
+                raise ValueError('Two dimensional data can only convert a 2 level aggregation (with 1 aggregation at each level)')
             name_of_lower_level = lower_level_dict[0]
             single_level_dataframe = bucket_to_dataframe(bucket.key,
                                                          bucket[name_of_lower_level]['buckets'],

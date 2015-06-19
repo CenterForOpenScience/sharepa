@@ -155,10 +155,11 @@ To convert these results to a pandas dataframe, we'll look within the appropriat
 
 ```
 from sharepa import bucket_to_dataframe
-
+from matplotlib import pyplot
 
 my_data_frame = bucket_to_dataframe('# documents by source - No Tags', new_results.aggregations.sources.buckets)
 my_data_frame.plot(kind='bar')
+pyplot.show()
 ```
 
 This will create a bar graph showing all of the sources, and document counts for each source matching our query of items that do not have tags.
@@ -167,6 +168,7 @@ You can also sort the data based on a certain column, in this case, '# documents
 
 ```
 my_data_frame.sort(ascending=False, columns='# documents by source - No Tags').plot(kind='bar')
+pyplot.show()
 ```
 
 
@@ -175,6 +177,8 @@ my_data_frame.sort(ascending=False, columns='# documents by source - No Tags').p
 Let's make a more interesting aggregation. Let's look at the documents that are missing titles, by source.
 
 ```
+from elasticsearch_dsl import F, Q
+
 my_search.aggs.bucket(
     'missingTitle',  # Name of the aggregation
     'filters', # We'll want to filter all the documents that have titles
@@ -273,7 +277,7 @@ It'd be great if we could merge this dataframe with another that has information
 We can use that dataframe and merge it with our newly created one:
 
 ```
-from sharepa import source_counts
+from sharepa.helpers import source_counts
 
 
 merged = merge_dataframes(source_counts(), matches,  missing_title)
@@ -283,6 +287,7 @@ We can also easily do computations on these columns, and add those to the datafr
 
 ```
 merged['percent_missing_tags_and_title'] = (merged.missingTitle / merged.total_source_counts) * 100
+pyplot.show()
 ```
 
 ## Examples
