@@ -177,6 +177,8 @@ pyplot.show()
 Let's make a more interesting aggregation. Let's look at the documents that are missing titles, by source.
 
 ```
+from elasticsearch_dsl import F, Q
+
 my_search.aggs.bucket(
     'missingTitle',  # Name of the aggregation
     'filters', # We'll want to filter all the documents that have titles
