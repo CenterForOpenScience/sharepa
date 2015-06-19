@@ -3,7 +3,7 @@ from sharepa.search import ShareSearch
 from elasticsearch_dsl.utils import AttrDict
 import pandas as pd
 from mock import Mock
-from sharepa.analysis import
+from sharepa.analysis import agg_to_two_dim_dataframe
 
 def test_basic_aggregation():
     search_with_basic_aggs = ShareSearch()
@@ -112,7 +112,7 @@ def test_two_dim_aggregation():
     search_with_two_dim_aggs.execute = Mock(return_value=search_mock)
     search_results = search_with_two_dim_aggs.execute()
     two_dim_dataframe = agg_to_two_dim_dataframe(search_results.testing_two_dim_aggs)
-    print two_dim_dataframe
+    print(two_dim_dataframe)
     assert isinstance(two_dim_dataframe, pd.DataFrame)
     assert two_dim_dataframe.shape[1] == 4
     assert two_dim_dataframe.shape[0] == 18
@@ -131,3 +131,5 @@ def test_merge_dataframes():
     assert isinstance(family, pd.core.frame.DataFrame)
     assert family.columns.values.tolist() == ['Rhodes', 'Rhodes']
     assert family.index.item() == 'Rhodes'
+
+
