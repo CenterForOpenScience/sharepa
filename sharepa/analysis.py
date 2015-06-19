@@ -18,7 +18,8 @@ def bucket_to_dataframe(name, buckets, append_name=None):
             single_dict = item.to_dict()
         single_dict[name] = single_dict.pop('doc_count')
         if append_name:
-            for key in single_dict.keys():
+            persistance_dict = single_dict.copy()
+            for key in persistance_dict.keys():
                 single_dict[append_name + '.' + key] = single_dict.pop(key)
         expanded_buckets.append(single_dict)
     return pd.DataFrame(expanded_buckets)
@@ -37,7 +38,10 @@ def agg_to_two_dim_dataframe(agg):
         if dict not in [type(item) for item in bucket_as_dict.values()]:
             return bucket_to_dataframe('doc_count', agg.buckets)
         else:
-            name_of_lower_level = bucket_as_dict.keys()[0]
+            lower_level_dict = [item for item in bucket_as_dict.keys() if type(bucket_as_dict[item]) is dict]
+            if len(lower_level_dict) > 1:
+                raise ValueError('Two dimensional data can only convert a 2 level aggregation (with 1 aggregation at each level)')
+            name_of_lower_level = lower_level_dict[0]
             single_level_dataframe = bucket_to_dataframe(bucket.key,
                                                          bucket[name_of_lower_level]['buckets'],
                                                          name_of_lower_level)
