@@ -3,7 +3,6 @@ from sharepa.search import ShareSearch
 from elasticsearch_dsl.utils import AttrDict
 import pandas as pd
 from mock import Mock
-from sharepa.analysis import
 
 def test_basic_aggregation():
     search_with_basic_aggs = ShareSearch()
