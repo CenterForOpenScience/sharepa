@@ -275,7 +275,7 @@ It'd be great if we could merge this dataframe with another that has information
 We can use that dataframe and merge it with our newly created one:
 
 ```
-from sharepa import source_counts
+from sharepa.helpers import source_counts
 
 
 merged = merge_dataframes(source_counts(), matches,  missing_title)
