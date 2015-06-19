@@ -52,6 +52,8 @@ for hit in results:
 You can make your own search object, which allows you to pass in custom queries for certain terms or SHARE fields. Queries are formed using [lucene query syntax](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html#query-string-syntax). 
 
 ```
+from sharepa import ShareSearch
+
 my_search = ShareSearch()
 
 my_search = my_search.query(
@@ -278,6 +280,7 @@ We can use that dataframe and merge it with our newly created one:
 
 ```
 from sharepa.helpers import source_counts
+from sharepa.analysis import merge_dataframes
 
 
 merged = merge_dataframes(source_counts(), matches,  missing_title)
@@ -353,7 +356,7 @@ Note: there are many ways to write filters/queries depending on the level of abs
 
 ```
 # Here is a pure elasticsearch-dsl filter
-my_search = my_search_two.filter(
+my_search = my_search.filter(
      "prefix",
      tags="ba"
 )
@@ -365,7 +368,7 @@ my_search = my_search.filter(
 )
 
 # We can also match elasticsearch syntax exactly, and input the raw dictionary into the filter method
-my_search = my_searchfilter(
+my_search = my_search.filter(
     {
         "prefix": {"tags": "ba"}
     }
