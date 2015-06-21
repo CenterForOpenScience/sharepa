@@ -28,7 +28,7 @@ You can use sharepa and the basic search to get the total number of documents in
 from sharepa import basic_search
 
 
-print(basic_search.count()
+print(basic_search.count())
 ```
 
 #### Iterating through results
