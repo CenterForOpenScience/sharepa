@@ -64,7 +64,7 @@ def convert_nested_to_dataframe(agg, dates_as_key=True):
                 # We are at some level other than the lowest
                 level_name = str(bucket.key)  # save the name of this level
                 lower_level_return = convert_nested_to_dataframe(bucket)  # and drop down into the next level
-                expanded_buckets.append(add_category_labels(level_name,cat_name,lower_level_return))
+                expanded_buckets.append(add_category_labels(level_name, cat_name, lower_level_return))
                 merge_vert = True
         if not merge_vert:
             dataframe_out = pd.DataFrame(expanded_buckets)
@@ -78,7 +78,7 @@ def convert_nested_to_dataframe(agg, dates_as_key=True):
         return pd.concat(expanded_buckets, axis=0).reset_index(drop=True)
 
 
-def add_category_labels(level_name,cat_name,dataframe_needing_cat):
+def add_category_labels(level_name, cat_name, dataframe_needing_cat):
     '''A function that adds a category name column to a pandas dataframe
 
         :param level_name: an aggregation from elasticsearch results with nesting
