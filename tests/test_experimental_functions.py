@@ -228,42 +228,48 @@ def test_convert_nested_to_dataframe_nested():
             for dates_buckets in source_buckets.dates.buckets:
                 assert dates_buckets.dates in my_dataframe['dates'].values.tolist()
 
-    # TODO create test to throw ValueError exception
 
-test_convert_nested_to_dataframe_crossed()
-test_convert_nested_to_dataframe_nested()
+def test_convert_nested_to_dataframe_raise_ValueError():
 
-# The search the broke Share?
-# my_search = ShareSearch()
-#
-# my_search.aggs.bucket(
-#     'tags',  # Every aggregation needs a name
-#     'terms',
-#     field='tags',
-#     # We store the source of a document in its type, so this will aggregate by source #BYNOTE so this looks at the type feild and agregates by that?
-#     size=10,  # These are just to make sure we get numbers for all the sources, to make it easier to combine graphs
-#     min_doc_count=0,
-# ).bucket(
-#     'source',
-#     'terms',
-#     field='source',
-#     size=10,
-#     min_doc_count=0
-# ).bucket(
-#     'tags2',
-#     'terms',
-#     field='tags',
-#     size=10,
-#     min_doc_count=0
-# ).bucket(
-#     'dates',
-#     'date_histogram',
-#     field='providerUpdatedDateTime',
-#     interval='1M',
-#     format='yyyy-MM-dd',
-#     extended_bounds={
-#         "min": "2014-10-01",
-#         "max": "2015-01-01"},
-#     min_doc_count=0
-# )
+    return
+
+    #FIXME currently this search breaks sharepa, no sure why, but needed to raise the value error
+
+    my_search = ShareSearch()  # BASE_URL='https://staging.osf.io/api/v1/share/search/')
+
+    # first we test crossed data
+    my_search.aggs.bucket(
+        'tags',  # Every aggregation needs a name
+        'terms',
+        field='tags',
+        size=3,
+        min_doc_count=0,
+    ).bucket(
+        'source',
+        'terms',
+        field='source',
+        size=3,
+        min_doc_count=0
+    ).bucket(
+        'tags2',
+        'terms',
+        field='tags',
+        size=10,
+        min_doc_count=0
+    ).bucket(
+        'dates',
+        'date_histogram',
+        field='providerUpdatedDateTime',
+        interval='1y',
+        format='yyyy-MM-dd',
+        extended_bounds={
+            "min": "2014-01-01",
+            "max": "2015-01-01"},
+        min_doc_count=0
+    )
+
+    #TODO create Mock return object for my_search.execute() here
+    my_results = my_search.execute()
+    my_dataframe = convert_nested_to_dataframe(my_results.aggregations)
+    print(my_dataframe)
 
