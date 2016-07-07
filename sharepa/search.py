@@ -6,7 +6,7 @@ from elasticsearch_dsl.result import Response
 
 
 class ShareSearch(Search):
-    BASE_URL = 'https://osf.io/api/v1/share/search/'
+    BASE_URL = 'http://localhost:8000/api/search/abstractcreativework/_search'
     HEADERS = {'content-type': 'application/json'}
     PARAMS = dict(raw=True)
 
@@ -21,7 +21,7 @@ class ShareSearch(Search):
         if d.get('aggs'):
             del d['aggs']
         self = ShareSearch.from_dict(d)
-        return self._query(self.to_dict(), params=dict(count=True))['count']
+        return self._query(self.to_dict(), params=dict(size=0))['hits']['total']
 
     def scan(self, size=100):
         count = 0
