@@ -9,8 +9,7 @@
 [![Coverage Status](https://coveralls.io/repos/CenterForOpenScience/sharepa/badge.svg?branch=develop)](https://coveralls.io/r/CenterForOpenScience/sharepa?branch=develop)
 [![Code Climate](https://codeclimate.com/github/fabianvf/sharepa/badges/gpa.svg)](https://codeclimate.com/github/fabianvf/sharepa)
 
-
-A python client for browsing and analyzing SHARE data (https://osf.io/share), gathered with scrAPI (https://github.com/CenterForOpenScience/scrapi). It builds heavily (almost completely) on the [elasticsearch-dsl](https://github.com/elastic/elasticsearch-dsl-py) package for handling Elasticsearch querying and aggregations, and contains some additional utilities to help with graphing and analyzing the data.
+A python client for browsing and analyzing SHARE data (http://share-research.readthedocs.io/en/latest/), gathered with the SHARE Processing Pipeline (https://github.com/CenterForOpenScience/SHARE). It builds heavily (almost completely) on the [elasticsearch-dsl](https://github.com/elastic/elasticsearch-dsl-py) package for handling Elasticsearch querying and aggregations, and contains some additional utilities to help with graphing and analyzing the data.
 
 ## Installation
 You can install sharepa using pip:
