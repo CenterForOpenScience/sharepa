@@ -53,7 +53,7 @@ def test_scan():
     my_search = ShareSearch()
     my_search = my_search.query(
         'query_string',
-        query='squared AND circle'
+        query='squared'
     )
     scan = my_search.scan()
     scan_list = [item for item in scan]

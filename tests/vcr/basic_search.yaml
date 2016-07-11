@@ -6,19 +6,28 @@ interactions:
       Accept-Encoding: ['gzip, deflate']
       Connection: [keep-alive]
       Content-Length: ['28']
-      User-Agent: [python-requests/2.7.0 CPython/2.7.9 Darwin/13.4.0]
+      User-Agent: [python-requests/2.10.0]
       content-type: [application/json]
     method: POST
-    uri: https://osf.io/api/v1/share/search/?count=True
+    uri: https://staging-share.osf.io/api/search/abstractcreativework/_search?size=0
   response:
-    body: {string: !!python/unicode '{"count": 1048895, "results": [], "time": 0.02}'}
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAzzLwQqDMBCE4XeZcygBtYd9lSJhSTYYGgm4GxDEd2+t0NPM4fsPBF14Swo6oD1G
+        Uc29giYHa8b3y1yqJJA/HZZiP3zva/678Tl57x1W3oPGtsnXP67CyioptG6gzFXlKtobNJwfAAAA
+        //8DAFjAxGV+AAAA
     headers:
-      connection: [close]
-      content-length: ['47']
-      content-type: [application/json; charset=utf-8]
-      date: ['Wed, 17 Jun 2015 19:37:47 GMT']
-      server: [nginx/1.4.6 (Ubuntu)]
-      set-cookie: [NB_SRVID=srv25533; path=/]
-      x-sentry-id: [None]
+      Allow: ['GET, POST, HEAD, OPTIONS']
+      Cache-Control: ['no-cache, no-store, max-age=0, must-revalidate']
+      Connection: [keep-alive]
+      Content-Encoding: [gzip]
+      Content-Type: [application/json]
+      Date: ['Mon, 11 Jul 2016 19:10:30 GMT']
+      Expires: ['Mon, 01 Jan 1990 00:00:00 GMT']
+      Pragma: [no-cache]
+      Server: [nginx/1.11.1]
+      Strict-Transport-Security: [max-age=15724800; includeSubDomains; preload]
+      Vary: ['Accept, Cookie']
+      X-Frame-Options: [SAMEORIGIN]
     status: {code: 200, message: OK}
 version: 1
