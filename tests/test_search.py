@@ -3,6 +3,7 @@ import elasticsearch_dsl
 
 from sharepa.search import ShareSearch
 from sharepa.search import basic_search
+from .compat import text_type
 
 
 @vcr.use_cassette('tests/vcr/basic_search_one.yaml')
@@ -34,7 +35,7 @@ def test_execute():
 
     assert len(result.hits) == 10
     assert type(result) is elasticsearch_dsl.result.Response
-    assert type(first_result['title']) is str
+    assert type(first_result['title']) is text_type
 
 
 @vcr.use_cassette('tests/vcr/basic_search.yaml')
@@ -56,4 +57,4 @@ def test_scan():
     )
     scan = my_search.scan()
     scan_list = list(scan)
-    assert type(scan_list[0].title) is str
+    assert type(scan_list[0].title) is text_type
