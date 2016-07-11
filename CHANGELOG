@@ -2,6 +2,13 @@
 ChangeLog
 *********
 
+0.3.0 (2016-07-11)
+==================
+- Update API to SHARE v2
+- Update README
+- Update ES to 2.3
+- Update count function to work with ES 2
+
 0.2.1 (2015-06-18)
 ================
 - Update README
