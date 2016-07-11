@@ -6,7 +6,7 @@ from elasticsearch_dsl.result import Response
 
 
 class ShareSearch(Search):
-    BASE_URL = 'http://localhost:8000/api/search/abstractcreativework/_search'
+    BASE_URL = 'https://staging-share.osf.io/api/search/abstractcreativework/_search'
     HEADERS = {'content-type': 'application/json'}
     PARAMS = dict(raw=True)
 
