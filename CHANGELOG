@@ -2,8 +2,12 @@
 ChangeLog
 *********
 
+0.3.0 (unreleased)
+==================
+- Compatibility with SHAREv2
+
 0.2.1 (2015-06-18)
-================
+==================
 - Update README
 - Add helper functions
 

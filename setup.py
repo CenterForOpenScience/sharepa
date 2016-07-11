@@ -1,6 +1,6 @@
 from setuptools import setup
 
-VERSION = '0.2.1'
+VERSION = '0.3.0.dev0'
 
 install_reqs = [
     'elasticsearch-dsl',
