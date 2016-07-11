@@ -44,6 +44,7 @@ def test_count():
     assert type(count) is int
 
 
+@vcr.use_cassette('tests/vcr/basic_search_query.yaml')
 def test_query():
     assert isinstance(basic_search._query(basic_search.to_dict()), dict)
 
