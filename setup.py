@@ -1,6 +1,6 @@
 from setuptools import setup
 
-VERSION = '0.2.1'
+VERSION = '0.3.0.dev0'
 
 install_reqs = [
     'elasticsearch-dsl',
@@ -12,9 +12,9 @@ setup(
     packages=['sharepa'],
     version=VERSION,
     description='A library for browsing and analyzing SHARE data',
-    author='Fabian von Feilitzsch',
-    author_email='fabian@cos.io',
-    url='https://github.com/fabianvf/sharepa',
-    download_url='https://github.com/fabianvf/sharepa/tarball/{}'.format(VERSION),
+    author='Center for Open Science',
+    author_email='contact@cos.io',
+    url='https://github.com/CenterForOpenScience/sharepa',
+    download_url='https://github.com/CenterForOpenScience/sharepa/tarball/{}'.format(VERSION),
     install_requires=install_reqs
 )
