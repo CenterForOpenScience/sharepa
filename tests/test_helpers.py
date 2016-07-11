@@ -1,6 +1,7 @@
 import vcr
 import pandas
 import pytest
+import numpy
 
 from sharepa.search import ShareSearch
 from sharepa.helpers import pretty_print
@@ -22,4 +23,4 @@ def test_pretty_print():
 def test_source_counts():
     all_counts = source_counts()
     assert isinstance(all_counts, pandas.core.frame.DataFrame)
-    assert all_counts.count().values[0] == 42
+    assert type(all_counts.count().values[0]) is numpy.int64
