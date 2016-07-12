@@ -11,14 +11,14 @@
 
 A python client for browsing and analyzing SHARE data (http://share-research.readthedocs.io/en/latest/), gathered with the SHARE Processing Pipeline (https://github.com/CenterForOpenScience/SHARE). It builds heavily (almost completely) on the [elasticsearch-dsl](https://github.com/elastic/elasticsearch-dsl-py) package for handling Elasticsearch querying and aggregations, and contains some additional utilities to help with graphing and analyzing the data.
 
+Use Binder to run the notebooks online! Click here: [![Binder](http://mybinder.org/badge.svg)](http://mybinder.org:/repo/erinspace/share_tutorials)
+
 ## Installation
 You can install sharepa using pip (inside a virtualenv):
 
     pip install git+https://github.com/CenterForOpenScience/sharepa@develop
 
-**note** The version above will work with SHARE v2's elasticsearch API. To install the version to run with V1 of the SHARE API, run:
-
-    pip install sharepa
+**note** The version above will work with SHARE v2's elasticsearch API. To install the version to run with V1 of the SHARE API, run ```pip install sharepa```
 
 ## Getting Started
 Here are some basic searches to get started parsing through SHARE data.
