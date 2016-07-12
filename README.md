@@ -12,8 +12,13 @@
 A python client for browsing and analyzing SHARE data (http://share-research.readthedocs.io/en/latest/), gathered with the SHARE Processing Pipeline (https://github.com/CenterForOpenScience/SHARE). It builds heavily (almost completely) on the [elasticsearch-dsl](https://github.com/elastic/elasticsearch-dsl-py) package for handling Elasticsearch querying and aggregations, and contains some additional utilities to help with graphing and analyzing the data.
 
 ## Installation
-You can install sharepa using pip:
-```pip install git+https://github.com/CenterForOpenScience/sharepa@develop```
+You can install sharepa using pip (inside a virtualenv):
+
+    pip install git+https://github.com/CenterForOpenScience/sharepa@develop
+
+**note** The version above will work with SHARE v2's elasticsearch API. To install the version to run with V1 of the SHARE API, run:
+
+    pip install sharepa
 
 ## Getting Started
 Here are some basic searches to get started parsing through SHARE data.
@@ -56,13 +61,12 @@ from sharepa import ShareSearch
 my_search = ShareSearch()
 
 my_search = my_search.query(
-    'query_string', # Type of query, will accept a lucene query string
-    query='NOT tags:*', # This lucene query string will find all documents that don't have tags
-    analyze_wildcard=True  # This will make elasticsearch pay attention to the asterisk (which matches anything)
+    'exists', # Type of query, will accept a field to check if exists
+    field='tags', # This lucene query string will find all documents that have tags
 )
 ```
 
-This type of query accepts a 'query_string'. Other options include a [match query](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query.html), a [multi-match query](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-multi-match-query.html), a [bool query](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-bool-query.html), and any other query structure available in the elasticsearch API.
+This type of query accepts a 'exists'. Other options include a [match query](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query.html), a [multi-match query](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-multi-match-query.html), a [bool query](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-bool-query.html), and any other query structure available in the elasticsearch API.
 
 We can see what that query that we're about to send to elasticsearch by using the pretty print helper function:
 
@@ -76,9 +80,8 @@ pretty_print(my_search.to_dict())
 ```
 {
     "query": {
-        "query_string": {
-            "analyze_wildcard": true, 
-            "query": "NOT tags:*"
+        "exists": {
+            "field": "tags"
         }
     }
 }
@@ -102,7 +105,7 @@ We can add an aggregation to my_search that will give us the number of documents
 my_search.aggs.bucket(
     'sources',  # Every aggregation needs a name
     'terms',  # There are many kinds of aggregations, terms is a pretty useful one though
-    field='_type',  # We store the source of a document in its type, so this will aggregate by source
+    field='sources',  # We store the source of a document in the sources field
     size=0,  # These are just to make sure we get numbers for all the sources, to make it easier to combine graphs
     min_doc_count=0
 )
@@ -117,11 +120,10 @@ pretty_print(my_search.to_dict())
 ```
 {
     "query": {
-        "query_string": {
-            "analyze_wildcard": true, 
-            "query": "NOT tags:*"
+        "exists": {
+            "field": "tags"
         }
-    }, 
+    },
     "aggs": {
         "sources": {
             "terms": {
@@ -196,7 +198,7 @@ my_search.aggs.bucket(
 ).metric(  # but wait, that's not enough! We need to break it down by source as well
     'sourceAgg',
     'terms',
-    field='_type',
+    field='sources',
     size=0,
     min_doc_count=0
 )
@@ -218,7 +220,7 @@ pretty_print(my_search.to_dict())
     "aggs": {
         "sources": {
             "terms": {
-                "field": "_type", 
+                "field": "sources", 
                 "min_doc_count": 0, 
                 "size": 0
             }
@@ -227,7 +229,7 @@ pretty_print(my_search.to_dict())
             "aggs": {
                 "sourceAgg": {
                     "terms": {
-                        "field": "_type", 
+                        "field": "sources", 
                         "min_doc_count": 0, 
                         "size": 0
                     }
