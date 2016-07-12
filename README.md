@@ -13,7 +13,7 @@ A python client for browsing and analyzing SHARE data (http://share-research.rea
 
 ## Installation
 You can install sharepa using pip:
-```pip install sharepa```
+```pip install git+https://github.com/CenterForOpenScience/sharepa@develop```
 
 ## Getting Started
 Here are some basic searches to get started parsing through SHARE data.
